@@ -1,0 +1,7 @@
+passlib
+fastapi
+uvicorn
+asyncpg
+python-multipart
+psycopg2
+jinja2==2.11.2
