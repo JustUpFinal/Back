@@ -43,11 +43,10 @@ async def take_info_calls(request:Statistic):
 
 
 @router.post('/images')
-async def loadphoto(in_file: UploadFile=File(...),addres:str=Form(...)):
+async def loadphoto(url:str = Form(...) ,addres:str=Form(...)):
     
-    with open(f'app/assets/{in_file.filename}',"wb") as buffer:
-        shutil.copyfileobj(in_file.file,buffer)
-    await db.load_photo(db,f'app/assets/{in_file.filename}',addres)
+    
+    await db.load_photo(db,f'{url}',addres)
     
     return {"image load"}
 

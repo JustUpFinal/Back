@@ -1,8 +1,7 @@
 import asyncpg
 from datetime import datetime
 
-from fastapi.datastructures import UploadFile
-from fastapi.params import File
+
 from app.model import CameraNew, Statistic
 
 class Database():
