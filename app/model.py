@@ -11,6 +11,7 @@ class FeedPostShow(BaseModel):
 class CameraNew(BaseModel):
     addres_name : str
     camera_potok : str
+    url: str
 class Statistic(BaseModel):
     cameraid:int
     datestart: str

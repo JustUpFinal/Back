@@ -21,6 +21,7 @@ async def take_info():
 async def add_camera(requset: CameraNew):
 
     await db.add_new_camera(db,requset)
+    await db.load_photo(db,f'{requset.url}',requset.addres)
     return { "Camera succeful added"}
 
 
@@ -42,13 +43,7 @@ async def take_info_calls(request:Statistic):
 
 
 
-@router.post('/images')
-async def loadphoto(url:str = Form(...) ,addres:str=Form(...)):
-    
-    
-    await db.load_photo(db,f'{url}',addres)
-    
-    return {"image load"}
+
 
 
 
