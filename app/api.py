@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from app.database import Database
 from .routers import cameras
+from starlette.middleware.cors import CORSMiddleware
 
-
-        
+origins = ["*"]    
 db = Database 
 app = FastAPI()
 
@@ -21,3 +21,10 @@ async def shutdown():
     
 
 app.include_router(cameras.router)
+app.add_middleware(
+CORSMiddleware,
+allow_origins=origins,
+allow_credentials=True,
+allow_methods=["*"],
+allow_headers=["*"],
+)

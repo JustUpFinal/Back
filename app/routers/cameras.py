@@ -37,8 +37,8 @@ async def uvel_call_number(addres:str):
 
 
 @router.get('/call')
-async def take_info_calls(request:Statistic):
-    return await db.take_calls(db,request)
+async def take_info_calls(body:Statistic):
+    return await db.take_calls(db,body)
 
 
 

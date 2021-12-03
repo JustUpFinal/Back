@@ -30,10 +30,10 @@ class Database():
         
         #доделать статистику
     async def take_calls(self,period:Statistic):
-        stat=await self.pool.fetchval ( """
-             SELECT * from monthstatistic
-            """)
-
+        print(await self.pool.fetch ( f"""
+             select * from monthstatistic where datemonth >= '{period.datestart}' and datemonth =< '{period.dateend}' and where idcamera = {period.cameraid}
+            """))
+        
     async def take_camera(self):
         return await self.pool.fetch(f'''
             SELECT addres_name,photo from CAMERA;

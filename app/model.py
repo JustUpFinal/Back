@@ -1,7 +1,6 @@
 
-from fastapi.params import Form
-from pydantic import BaseModel, validator
-from typing import Optional, Text
+from pydantic import BaseModel
+
 class FeedPostShow(BaseModel):
     id: int
     id_user: int
@@ -13,6 +12,6 @@ class CameraNew(BaseModel):
     addres_name : str
     camera_potok : str
 class Statistic(BaseModel):
-    addres:str
+    cameraid:int
     datestart: str
     dateend: str
