@@ -29,7 +29,7 @@ class Database():
         currentMonth = datetime.now().month
         currentYear = datetime.now().year
         
-        
+        #доделать статистику
     async def take_calls(self,period:Statistic):
         stat=await self.pool.fetchval ( """
              SELECT * from monthstatistic
@@ -39,8 +39,8 @@ class Database():
         return await self.pool.fetch(f'''
             SELECT addres_name,photo from CAMERA;
         ''')
-    async def load_photo(self,in_file: str):
+    async def load_photo(self,in_file: str,addres:str):
         # если что можно вставить https://github.com/JustUpFinal/back/tree/master/ для url
         await self.pool.execute(f"""
-                UPDATE camera set photo='{in_file}' where id ='{1}';
+                UPDATE camera set photo='{in_file}' where addres_name ='{addres}';
             """)

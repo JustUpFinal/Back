@@ -1,12 +1,12 @@
 import shutil
 from fastapi import APIRouter,HTTPException,status
 from fastapi.datastructures import UploadFile
-from fastapi.params import File, Path
+from fastapi.params import File, Form
 
 from app.database import Database
 from app.model import CameraNew, Statistic
 
-from starlette.responses import StreamingResponse
+
 
 router = APIRouter( tags=["Camera"])
 db =Database
@@ -43,11 +43,11 @@ async def take_info_calls(request:Statistic):
 
 
 @router.post('/images')
-async def loadphoto(in_file: UploadFile=File(...)):
+async def loadphoto(in_file: UploadFile=File(...),addres:str=Form(...)):
     
     with open(f'app/assets/{in_file.filename}',"wb") as buffer:
         shutil.copyfileobj(in_file.file,buffer)
-    await db.load_photo(db,f'app/assets/{in_file.filename}')
+    await db.load_photo(db,f'app/assets/{in_file.filename}',addres)
     
     return {"image load"}
 

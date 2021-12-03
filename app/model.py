@@ -14,7 +14,5 @@ class CameraNew(BaseModel):
     camera_potok : str
 class Statistic(BaseModel):
     addres:str
-    startmounth:int
-    startyear:int
-    endmounth:int
-    endyear:int
+    datestart: str
+    dateend: str
