@@ -1,5 +1,8 @@
 import asyncpg
 from datetime import datetime
+
+from fastapi.datastructures import UploadFile
+from fastapi.params import File
 from app.model import CameraNew, Statistic
 
 class Database():
@@ -36,3 +39,8 @@ class Database():
         return await self.pool.fetch(f'''
             SELECT addres_name,photo from CAMERA;
         ''')
+    async def load_photo(self,in_file: str):
+        # если что можно вставить https://github.com/JustUpFinal/back/tree/master/ для url
+        await self.pool.execute(f"""
+                UPDATE camera set photo='{in_file}' where id ='{1}';
+            """)
