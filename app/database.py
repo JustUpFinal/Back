@@ -28,18 +28,40 @@ class Database():
         currentMonth = datetime.now().month
         currentYear = datetime.now().year
         
+        lastmonth = await self.pool.fetchval(f"""
+                select datemonth from monthstatistic  order by datemonth desc;
+                """)
+        
+        if lastmonth == None or (str(lastmonth)[5:7] !=str(currentMonth) and str(lastmonth)[0:4]!= str(currentYear) ):
+            #создыние new table
+            await self.pool.execute(f'''
+                INSERT INTO monthstatistic (idcamera,number_of_calls,datemonth) VALUES ({uidcamera},1,'{currentYear}-{currentMonth}-01')
+            ''')
+        else:
+            uidlastmonth =await self.pool.fetchval ( """
+             SELECT idmonth FROM monthstatistic order by datemonth desc;
+            """)
+            calls = await self.pool.fetchval ( f"""
+                SELECT number_of_calls FROM monthstatistic WHERE idmonth ={uidlastmonth};
+                """)
+            calls +=1
+            await self.pool.execute(f"""
+                UPDATE monthstatistic set number_of_calls={calls} where idmonth={uidlastmonth};
+            """) 
+
+        
         #доделать статистику
     async def take_calls(self,period:Statistic):
-        print(await self.pool.fetch ( f"""
-             select * from monthstatistic where datemonth >= '{period.datestart}' and datemonth =< '{period.dateend}' and where idcamera = {period.cameraid}
-            """))
+        return await self.pool.fetch ( f"""
+             select * from monthstatistic where datemonth >= '{period.datestart}' and datemonth <= '{period.dateend}' and  idcamera = {period.cameraid} order by datemonth desc ;
+            """)
         
     async def take_camera(self):
         return await self.pool.fetch(f'''
             SELECT addres_name,photo from CAMERA;
         ''')
     async def load_photo(self,in_file: str,addres:str):
-        # если что можно вставить https://github.com/JustUpFinal/back/tree/master/ для url
+       
         await self.pool.execute(f"""
                 UPDATE camera set photo='{in_file}' where addres_name ='{addres}';
             """)

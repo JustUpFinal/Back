@@ -30,15 +30,15 @@ async def take_info_setting_camera():
     return await db.take_info_camera(db)
 
 
-@router.post ('/call')
+@router.post ('/calltake')
 async def uvel_call_number(addres:str):
     await db.create_call(db,addres)
     return{ "call zapisan"}
 
 
-@router.get('/call')
-async def take_info_calls(body:Statistic):
-    return await db.take_calls(db,body)
+@router.post('/call')
+async def take_info_calls(request:Statistic):
+    return await db.take_calls(db,request)
 
 
 
