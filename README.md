@@ -19,5 +19,6 @@ foo@bar:~$ python main.py
 ```
 
 ![Database](app/assets/bd.png)
+
 РАЗРАБОТЧИКИ
 Алина Лебедева DATA-scientist, Backend  Telegramm:@leba129
