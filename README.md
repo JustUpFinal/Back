@@ -25,4 +25,4 @@ foo@bar:~$ pip install requirements.txt
 foo@bar:~$ python main.py
 ```
 
-![Database](app/assets/db.png)
+![Database](app/assets/bd.png)
