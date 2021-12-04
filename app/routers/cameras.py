@@ -5,6 +5,7 @@ from fastapi.params import File, Form
 
 from app.database import Database
 from app.model import CameraNew, Statistic
+#from app.neironka.main import detection
 
 
 
@@ -21,6 +22,7 @@ async def take_info():
 async def add_camera(requset: CameraNew):
 
     await db.add_new_camera(db,requset)
+    #requset.url=detection(requset.url) # подключение к нейронке
     await db.load_photo(db,f'{requset.url}',requset.addres)
     return { "Camera succeful added"}
 
