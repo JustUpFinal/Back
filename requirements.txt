@@ -5,3 +5,8 @@ asyncpg
 python-multipart
 psycopg2
 jinja2==2.11.2
+bcrypt
+python-jose
+PyJWT==1.7.1
+python-decouple==3.3
+psycopg2
