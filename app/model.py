@@ -1,5 +1,6 @@
 
 from pydantic import BaseModel
+from typing import Optional
 
 class FeedPostShow(BaseModel):
     id: int
@@ -16,3 +17,21 @@ class Statistic(BaseModel):
     cameraid:int
     datestart: str
     dateend: str
+class User(BaseModel):
+    login : str
+    password: str
+    
+
+class LoginUser(BaseModel):
+        login:str
+        password: str
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    login: Optional[str] = None
+
+
+

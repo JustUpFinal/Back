@@ -2,7 +2,7 @@ import asyncpg
 from datetime import datetime
 
 
-from app.model import CameraNew, Statistic
+from app.model import CameraNew, Statistic, User
 
 class Database():
 
@@ -65,3 +65,18 @@ class Database():
         await self.pool.execute(f"""
                 UPDATE camera set photo='{in_file}' where addres_name ='{addres}';
             """)
+    async def create_user(self, User: User):
+
+        await self.pool.execute(f'''
+        INSERT INTO users (login,password) VALUES ('{User.login}','{User.password}');
+        ''')
+    async def check_login(self, login: str):
+            userlogin = await self.pool.fetchrow(f"""
+             SELECT uid FROM users WHERE login = '{login}';       
+                """)
+            return userlogin
+    async def take_password(self, login:str):
+        password = await self.pool.fetchval(f"""
+             SELECT password FROM users WHERE login = '{login}';       
+                """)
+        return password
